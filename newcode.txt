@@ -1,3 +1,8 @@
+
+
+
+//////////////////////////////////////
+
 #include "shell.h"
 #include <sys/types.h>
 #include <sys/wait.h>
@@ -9,12 +14,8 @@ void execmd(char **argv){
     if (argv){
         command = argv[0];
 
-        actual_command = find_path(command);
+        actual_command = get_location(command);
 
-        if (actual_command == NULL) {
-            printf("Command not found: %s\n", command);
-            return;
-        }
     
         child_pid = fork();
 

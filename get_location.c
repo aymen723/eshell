@@ -1,4 +1,4 @@
-#include "main.h"
+#include "shell.h"
 
 char *get_location(char *command){
     char *path, *path_copy, *path_token, *file_path;

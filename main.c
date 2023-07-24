@@ -1,8 +1,8 @@
-#include "main.h"
+#include "shell.h"
 
 int main(int ac, char **argv)
 {
-    char *prompt = "(Eshell) $ ";
+    char *prompt = "(aymen) $ ";
     char *lineptr = NULL, *lineptr_copy = NULL;
     size_t n = 0;
     ssize_t nchars_read;
@@ -26,24 +26,39 @@ int main(int ac, char **argv)
             return (-1);
         }
 
-        /* allocate space for a copy of the lineptr */
+        trim(lineptr);
+
+        if (strcmp(lineptr, "exit") == 0) {
+            printf("Exiting shell....\n");
+            break;
+        } else if (strcmp(lineptr, "env") == 0) {
+            print_environment();
+            continue;
+        }
+
+        if (strlen(lineptr) == 0)
+        {
+            continue;
+        }
+
         lineptr_copy = malloc(sizeof(char) * nchars_read);
         if (lineptr_copy == NULL)
         {
             perror("tsh: memory allocation error");
             return (-1);
         }
-        /* copy lineptr to lineptr_copy */
+
         strcpy(lineptr_copy, lineptr);
 
-        /********** split the string (lineptr) into an array of words ********/
-        /* calculate the total number of tokens */
+       
         token = strtok(lineptr, delim);
 
         while (token != NULL)
         {
             num_tokens++;
             token = strtok(NULL, delim);
+
+
         }
         num_tokens++;
 
